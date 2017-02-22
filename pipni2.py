@@ -25,7 +25,6 @@ class Main(QtWidgets.QMainWindow):
         self.ui.lista_lineEdit.clicked.connect(self.selectfile_Dialog)
         self.ui.specif_lineEdit.clicked.connect(self.selectfile_Dialog)
         self.ui.lista_lineEdit_2.clicked.connect(self.selectfile_Dialog)
-        self.ui.izlazna_lineEdit.clicked.connect(self.selectfile_Dialog)
 
 
     def write_to_browser(self, text):
