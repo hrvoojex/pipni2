@@ -23,26 +23,41 @@ class Main(QtWidgets.QMainWindow):
         # call a method 'selectfile_Dialog' if one of QLineEdit
         # object's is clicked
         self.ui.lista_lineEdit.clicked.connect(self.selectfile_Dialog)
+        #self.ui.lista_lineEdit.clicked.connect(self.fill_combobox)
+
         self.ui.specif_lineEdit.clicked.connect(self.selectfile_Dialog)
         self.ui.lista_lineEdit_2.clicked.connect(self.selectfile_Dialog)
 
 
-    def write_to_browser(self, text):
-        self.ui.textBrowser.setText(text)
+    def fill_combobox(self, filename):
+        """Set combobox options from lista.csv header. This method is called
+        when first QLineEdit widget is clicked"""
+
+        with open(filename, "r") as fh:
+            data = fh.readlines()
+            # removes escape charachters from items in list 'data'
+            data = [x.strip() for x in data]
+            self.ui.textBrowser.setText(data[0])
+
 
 
     def selectfile_Dialog(self, event=None):
         """
         Opens a dialog for choosing a file. Takes two positionals arguments
-        'self' and 'event' because 'mouseReleaseEvent' sends two. When
+        'self' and 'event' because 'mouseReleaseEvent' sends two, when creating
+        new method eg. 'label1.mouseReleaseEvent = self.showText1'. When
         subclassing QLineEdit as ClickableLineEdit 'event' is None"
         """
+
+        fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open file", "/home")
         # sender is object that sends the signal
         sender = self.sender()
-        self.write_to_browser(sender.objectName())
-        fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open file", "/home")
-        if fname:
-            sender.setText(fname)
+        sender.setText(fname)
+
+        # set options for combobox only from lista_lineEdit QLineEdit widget
+        if sender.objectName() == "lista_lineEdit":
+            self.fill_combobox(fname)
+
 
 
     def openfile(self, file_path):
