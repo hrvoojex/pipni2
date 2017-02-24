@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Calculate telecomunication cost"""
+"""
+Calculate telecomunication cost
+
+author: Hrvoje T
+last edited: February 2017
+"""
 
 import sys
 from mainwindow import *
 
+# File for saving the result. Default 'output_pipni2.csv' if not explicitly named
+OUTPUT_FILE = "output_pipni.csv"
 
 class Main(QtWidgets.QMainWindow):
 
@@ -28,6 +35,9 @@ class Main(QtWidgets.QMainWindow):
         # Close the main windows when 'Exit' menu is triggered
         self.ui.actionExit.triggered.connect(self.close)
 
+        # When 'Prikaži' button is clicked, connect 'accepted' signal to method
+        self.ui.prikazi_button.clicked.connect(self.prikazi_button_clicked)
+
 
     def selectfile_Dialog(self, event=None):
         """
@@ -48,8 +58,10 @@ class Main(QtWidgets.QMainWindow):
 
 
     def fill_combobox(self, filename):
-        """Set combobox options from lista.csv header. This method is called
-        when first QLineEdit widget is clicked"""
+        """
+        Set combobox options from lista.csv header. This method is called
+        when first QLineEdit widget is clicked
+        """
         with open(filename, "r") as fh:
             # read from a file line by line. Every line is a item in a list
             data = fh.readlines()
@@ -64,15 +76,25 @@ class Main(QtWidgets.QMainWindow):
                 self.ui.zeljeni_comboBox.setItemText(index, first_row_words[index])
                 index += 1
 
-            #self.ui.textBrowser.setText(first_row_words[0])
+
+    def write_outputfile(self):
+        """Write everything from textBrowser to a output file"""
+        # Writes to a global variable defined at the begining of a module
+        global OUTPUT_FILE
+        data = self.ui.textBrowser.toPlainText()
+        with open(OUTPUT_FILE, "w") as f:
+            f.write(data)
 
 
-    def openfile(self, file_path):
-            """Opens a file as 'read-only' and reads it"""
-            f = open(file_path, 'r')
-            with f:
-                data = f.read()
-                return data
+    def display_in_textbox(self):
+        """Display calculation result in QtextBox widget"""
+        self.ui.textBrowser.setText(self.ui.zeljeni_comboBox.currentText())
+
+
+    def prikazi_button_clicked(self):
+        """Actions that hapen when OK button is clicked"""
+        self.display_in_textbox()
+        #self.write_outputfile()
 
 
     def closeEvent(self, event):

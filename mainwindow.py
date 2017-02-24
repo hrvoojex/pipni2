@@ -31,10 +31,27 @@ class Ui_MainWindow(object):
         self.zeljeni_comboBox.setObjectName("zeljeni_comboBox")
         # Adds first combobox item.
         self.zeljeni_comboBox.addItem("")
-        self.potvrdi_buttonBox = QtWidgets.QDialogButtonBox(self.zeljeni_groupBox)
-        self.potvrdi_buttonBox.setGeometry(QtCore.QRect(250, 145, 166, 26))
-        self.potvrdi_buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        self.potvrdi_buttonBox.setObjectName("potvrdi_buttonBox")
+        # self.potvrdi_buttonBox = QtWidgets.QDialogButtonBox(self.zeljeni_groupBox)
+        # self.potvrdi_buttonBox.setGeometry(QtCore.QRect(250, 145, 166, 26))
+        # self.potvrdi_buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
+        # self.potvrdi_buttonBox.setObjectName("potvrdi_buttonBox")
+
+        # manualy added 'Prikaži' button
+        self.prikazi_button = QtWidgets.QPushButton(self.zeljeni_groupBox)
+        self.prikazi_button.setGeometry(170, 145, 80, 26)
+        self.prikazi_button.setText("Prikaži")
+
+        # added 'Spremi' button
+        self.spremi_button = QtWidgets.QPushButton(self.zeljeni_groupBox)
+        self.spremi_button.setGeometry(250, 145, 80, 26)
+        self.spremi_button.setText("Spremi")
+
+        # added 'Cancel' button
+        self.spremi_button = QtWidgets.QPushButton(self.zeljeni_groupBox)
+        self.spremi_button.setGeometry(330, 145, 80, 26)
+        self.spremi_button.setText("Otkaži")
+
+
         self.jedansvi_groupBox = QtWidgets.QGroupBox(self.zeljeni_groupBox)
         self.jedansvi_groupBox.setGeometry(QtCore.QRect(10, 70, 151, 60))
         self.jedansvi_groupBox.setObjectName("jedansvi_groupBox")
