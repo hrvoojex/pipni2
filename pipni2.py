@@ -20,16 +20,12 @@ class Main(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # call a method 'selectfile_Dialog' if one of QLineEdit
-        # object's is clicked
+        # call a method 'selectfile_Dialog' if one of QLineEdit objects is clicked
         self.ui.lista_lineEdit.clicked.connect(self.selectfile_Dialog)
-        #self.ui.lista_lineEdit.clicked.connect(self.fill_combobox)
-
         self.ui.specif_lineEdit.clicked.connect(self.selectfile_Dialog)
         self.ui.lista_lineEdit_2.clicked.connect(self.selectfile_Dialog)
 
-
-
+        self.ui.actionExit.triggered.connect(self.close)
 
 
     def selectfile_Dialog(self, event=None):
@@ -53,14 +49,15 @@ class Main(QtWidgets.QMainWindow):
     def fill_combobox(self, filename):
         """Set combobox options from lista.csv header. This method is called
         when first QLineEdit widget is clicked"""
-
         with open(filename, "r") as fh:
+            # read from a file line by line. Every line is a item in a list
             data = fh.readlines()
             # removes escape charachters from items in list 'data'
             data = [x.strip() for x in data]
             # from 0-th item in list 'data' and split where is ;
             first_row_words = data[0].split(";")
             index = 0
+            self.ui.zeljeni_comboBox.removeItem(index)
             for item in first_row_words:
                 self.ui.zeljeni_comboBox.addItem("")
                 self.ui.zeljeni_comboBox.setItemText(index, first_row_words[index])

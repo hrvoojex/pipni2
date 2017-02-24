@@ -118,7 +118,7 @@ class Ui_MainWindow(object):
         # added here from QtCreator's translate function
         MainWindow.setWindowTitle("PipNi2")
         self.zeljeni_groupBox.setTitle("Željeni podaci")
-        self.zeljeni_comboBox.setItemText(0, "Opcije rezultata")
+        self.zeljeni_comboBox.setItemText(0, "Uvezi 'lista.csv' file za opcije")
         # self.zeljeni_comboBox.setItemText(1, ("New Item"))
         # self.zeljeni_comboBox.setItemText(2, ("New Item"))
         self.jedansvi_groupBox.setTitle("Jedan broj ili svi:")
