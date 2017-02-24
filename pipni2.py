@@ -25,6 +25,7 @@ class Main(QtWidgets.QMainWindow):
         self.ui.specif_lineEdit.clicked.connect(self.selectfile_Dialog)
         self.ui.lista_lineEdit_2.clicked.connect(self.selectfile_Dialog)
 
+        # Close the main windows when 'Exit' menu is triggered
         self.ui.actionExit.triggered.connect(self.close)
 
 
