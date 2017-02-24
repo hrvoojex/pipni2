@@ -3,8 +3,6 @@
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
-#
-# WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -32,8 +30,8 @@ class Ui_MainWindow(object):
         self.zeljeni_comboBox.setGeometry(QtCore.QRect(10, 30, 411, 26))
         self.zeljeni_comboBox.setObjectName("zeljeni_comboBox")
         self.zeljeni_comboBox.addItem("")
-        self.zeljeni_comboBox.addItem("")
-        self.zeljeni_comboBox.addItem("")
+        # self.zeljeni_comboBox.addItem("")
+        # self.zeljeni_comboBox.addItem("")
         self.potvrdi_buttonBox = QtWidgets.QDialogButtonBox(self.zeljeni_groupBox)
         self.potvrdi_buttonBox.setGeometry(QtCore.QRect(250, 145, 166, 26))
         self.potvrdi_buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
@@ -117,11 +115,12 @@ class Ui_MainWindow(object):
         self.menuBar.addAction(self.menuPipni2.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
 
+        # added here from QtCreator's translate function
         MainWindow.setWindowTitle("PipNi2")
         self.zeljeni_groupBox.setTitle("Željeni podaci")
-        self.zeljeni_comboBox.setItemText(0, ("New Item"))
-        self.zeljeni_comboBox.setItemText(1, ("New Item"))
-        self.zeljeni_comboBox.setItemText(2, ("New Item"))
+        self.zeljeni_comboBox.setItemText(0, "Opcije rezultata")
+        # self.zeljeni_comboBox.setItemText(1, ("New Item"))
+        # self.zeljeni_comboBox.setItemText(2, ("New Item"))
         self.jedansvi_groupBox.setTitle("Jedan broj ili svi:")
         self.jedan_radioButton.setText("Jedan")
         self.svi_radioButton.setText("Svi")
