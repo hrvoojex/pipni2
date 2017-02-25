@@ -38,6 +38,14 @@ class Main(QtWidgets.QMainWindow):
         # When 'Prikaži' button is clicked, connect 'accepted' signal to method
         self.ui.prikazi_button.clicked.connect(self.prikazi_button_clicked)
 
+        # When 'Spremi' button is clicked, connect 'accepted' signal to method
+        self.ui.spremi_button.clicked.connect(self.spremi_button_clicked)
+
+        # When 'Otkazi' button is clicked, connect 'accepted' signal to method
+        self.ui.otkazi_button.clicked.connect(self.otkazi_button_clicked)
+
+
+
 
     def selectfile_Dialog(self, event=None):
         """
@@ -67,10 +75,12 @@ class Main(QtWidgets.QMainWindow):
             data = fh.readlines()
             # removes escape charachters from items in list 'data'
             data = [x.strip() for x in data]
-            # from 0-th item in list 'data' and split where is ;
+            # from 0-th item in list 'data' and split where is ';' sign
             first_row_words = data[0].split(";")
             index = 0
+            # removes first default combobox option
             self.ui.zeljeni_comboBox.removeItem(index)
+            # for every item in first row add it as an combobox option
             for item in first_row_words:
                 self.ui.zeljeni_comboBox.addItem("")
                 self.ui.zeljeni_comboBox.setItemText(index, first_row_words[index])
@@ -91,10 +101,36 @@ class Main(QtWidgets.QMainWindow):
         self.ui.textBrowser.setText(self.ui.zeljeni_comboBox.currentText())
 
 
+    def cancel_settings(self):
+        """Reset all app settings"""
+        # remove all QLineEdit widgets text
+        self.ui.lista_lineEdit.setText("")
+        self.ui.specif_lineEdit.setText("")
+        self.ui.lista_lineEdit_2.setText("")
+        self.ui.izlazna_lineEdit.setText("")
+        self.ui.broj_lineEdit.setText("")
+
+        # radio button reset to 'Svi'
+        self.ui.svi_radioButton.setChecked(True)
+
+        # remove all combobox options
+        self.ui.zeljeni_comboBox.clear()
+
+
+
     def prikazi_button_clicked(self):
         """Actions that hapen when OK button is clicked"""
         self.display_in_textbox()
-        #self.write_outputfile()
+
+
+    def spremi_button_clicked(self):
+        """Calls a method for saving a result in a file"""
+        self.write_outputfile()
+
+
+    def otkazi_button_clicked(self):
+        """Calls a method for canceling app settings"""
+        self.cancel_settings()
 
 
     def closeEvent(self, event):
@@ -111,6 +147,8 @@ class Main(QtWidgets.QMainWindow):
         """Action when return or escape is pressed"""
         if e.key() == QtCore.Qt.Key_Escape:
             self.close()
+
+
 
 
 

@@ -47,10 +47,9 @@ class Ui_MainWindow(object):
         self.spremi_button.setText("Spremi")
 
         # added 'Cancel' button
-        self.spremi_button = QtWidgets.QPushButton(self.zeljeni_groupBox)
-        self.spremi_button.setGeometry(330, 145, 80, 26)
-        self.spremi_button.setText("Otkaži")
-
+        self.otkazi_button = QtWidgets.QPushButton(self.zeljeni_groupBox)
+        self.otkazi_button.setGeometry(330, 145, 80, 26)
+        self.otkazi_button.setText("Otkaži")
 
         self.jedansvi_groupBox = QtWidgets.QGroupBox(self.zeljeni_groupBox)
         self.jedansvi_groupBox.setGeometry(QtCore.QRect(10, 70, 151, 60))
