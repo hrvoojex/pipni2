@@ -1,10 +1,8 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainwindow.ui'
-#
-# Created by: PyQt5 UI code generator 5.7
+from PyQt5 import QtCore, QtWidgets
 
-from PyQt5 import QtCore, QtGui, QtWidgets
 
 class ClickableLineEdit(QtWidgets.QLineEdit):
     """Subclassing QLineEdit class to make it clickable"""
@@ -15,6 +13,7 @@ class ClickableLineEdit(QtWidgets.QLineEdit):
             self.clicked.emit()
         else:
             super().mousePressEvent(event)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
