@@ -29,6 +29,9 @@ class Main(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # disable 'Spremi' button if there is no data in textBrowser
+        self.spremi_button_disabled()
+
         # call a method 'selectfile_Dialog' if one of QLineEdit objects is clicked
         self.ui.lista_lineEdit.clicked.connect(self.selectfile_Dialog)
         self.ui.specif_lineEdit.clicked.connect(self.selectfile_Dialog)
@@ -50,7 +53,12 @@ class Main(QtWidgets.QMainWindow):
         new method eg. 'label1.mouseReleaseEvent = self.showText1'. When
         subclassing QLineEdit as ClickableLineEdit 'event' is None"
         """
-        fname, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open file")
+        # QFileDialog doesn't use native OS dialog like this one:
+        # 'fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')'
+        # to remember last opening path
+        fname, _ = QtWidgets.QFileDialog.getOpenFileName(
+                   self, 'Open File', '', 'Text file (*.csv)',
+                   None, QtWidgets.QFileDialog.DontUseNativeDialog)
         # sender is object that sends the signal
         sender = self.sender()
         # wite selected file name into that QLineEdit widget 'lista_lineEdit'
@@ -115,6 +123,7 @@ class Main(QtWidgets.QMainWindow):
         # clear textBrowser text
         self.ui.textBrowser.setText("")
 
+
     def adresar_changed(self):
         """Change global OUTPUT_FILE to QLineEdit widget adresar text"""
         global OUTPUT_FILE
@@ -126,9 +135,19 @@ class Main(QtWidgets.QMainWindow):
             OUTPUT_FILE = date_string + "-output_pipni.csv"
 
 
+    def spremi_button_disabled(self):
+        """Disables 'Spremi' button until textBrowser if filled"""
+        data = self.ui.textBrowser.toPlainText()
+        if data == "":
+            self.ui.spremi_button.setDisabled(True)
+        else:
+            self.ui.spremi_button.setDisabled(False)
+
+
     def prikazi_button_clicked(self):
         """Actions that hapen when OK button is clicked"""
         self.display_in_textbox()
+        self.spremi_button_disabled()
 
 
     def spremi_button_clicked(self):
@@ -139,6 +158,7 @@ class Main(QtWidgets.QMainWindow):
     def otkazi_button_clicked(self):
         """Calls a method for canceling app settings"""
         self.cancel_settings()
+        self.spremi_button_disabled()
 
 
     def closeEvent(self, event):

@@ -30,10 +30,6 @@ class Ui_MainWindow(object):
         self.zeljeni_comboBox.setObjectName("zeljeni_comboBox")
         # Adds first combobox item.
         self.zeljeni_comboBox.addItem("")
-        # self.potvrdi_buttonBox = QtWidgets.QDialogButtonBox(self.zeljeni_groupBox)
-        # self.potvrdi_buttonBox.setGeometry(QtCore.QRect(250, 145, 166, 26))
-        # self.potvrdi_buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
-        # self.potvrdi_buttonBox.setObjectName("potvrdi_buttonBox")
 
         # manualy added 'Prikaži' button
         self.prikazi_button = QtWidgets.QPushButton(self.zeljeni_groupBox)
@@ -130,6 +126,7 @@ class Ui_MainWindow(object):
         self.actionExit.setShortcut("Ctrl+E")
         self.actionExit.setStatusTip("Zatvori program")
 
+        # menu actions
         self.menuPipni2.addAction(self.actionReset)
         self.menuPipni2.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionAbout)
@@ -140,8 +137,6 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle("PipNi2")
         self.zeljeni_groupBox.setTitle("Željeni podaci")
         self.zeljeni_comboBox.setItemText(0, "Uvezi 'lista.csv' file za opcije")
-        # self.zeljeni_comboBox.setItemText(1, ("New Item"))
-        # self.zeljeni_comboBox.setItemText(2, ("New Item"))
         self.jedansvi_groupBox.setTitle("Jedan broj ili svi:")
         self.jedan_radioButton.setText("Jedan")
         self.svi_radioButton.setText("Svi")
