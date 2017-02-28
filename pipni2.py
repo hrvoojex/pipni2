@@ -44,6 +44,8 @@ class Main(QtWidgets.QMainWindow):
         self.ui.spremi_button.clicked.connect(self.spremi_button_clicked)
         # When 'Otkazi' button is clicked, connect 'accepted' signal to method
         self.ui.otkazi_button.clicked.connect(self.otkazi_button_clicked)
+        # When 'Reset' menu is triggered
+        self.ui.actionReset.triggered.connect(self.otkazi_button_clicked)
 
 
     def selectfile_Dialog(self, event=None):
@@ -98,7 +100,6 @@ class Main(QtWidgets.QMainWindow):
         # Writes to a global variable defined at the begining of a module
         global OUTPUT_FILE
         data = self.ui.textBrowser.toPlainText()
-        self.ui.textBrowser.setText(OUTPUT_FILE)
         with open(OUTPUT_FILE, "w") as f:
             f.write(data)
 
@@ -133,6 +134,11 @@ class Main(QtWidgets.QMainWindow):
             OUTPUT_FILE = date_string + "-" + save_to
         else:
             OUTPUT_FILE = date_string + "-output_pipni.csv"
+
+
+    def calculation(self):
+        """Method for calculation a logic of a program"""
+
 
 
     def spremi_button_disabled(self):

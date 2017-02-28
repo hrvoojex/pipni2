@@ -103,11 +103,13 @@ class Ui_MainWindow(object):
         self.textBrowser.setGeometry(QtCore.QRect(10, 30, 751, 281))
         self.textBrowser.setObjectName("textBrowser")
         MainWindow.setCentralWidget(self.centralWidget)
+
+        # create menu bar
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 23))
         self.menuBar.setObjectName("menuBar")
-        self.menuPipni2 = QtWidgets.QMenu(self.menuBar)
-        self.menuPipni2.setObjectName("menuPipni2")
+        self.menuFile = QtWidgets.QMenu(self.menuBar)
+        self.menuFile.setObjectName("menuFile")
         self.menuHelp = QtWidgets.QMenu(self.menuBar)
         self.menuHelp.setObjectName("menuHelp")
         MainWindow.setMenuBar(self.menuBar)
@@ -117,20 +119,26 @@ class Ui_MainWindow(object):
         self.statusBar = QtWidgets.QStatusBar(MainWindow)
         self.statusBar.setObjectName("statusBar")
         MainWindow.setStatusBar(self.statusBar)
+
+        # actions
         self.actionAbout = QtWidgets.QAction(MainWindow)
         self.actionAbout.setObjectName("actionAbout")
+        self.actionAbout.setShortcut("Ctrl+B")
+        self.actionAbout.setStatusTip("O programu")
         self.actionReset = QtWidgets.QAction(MainWindow)
         self.actionReset.setObjectName("actionReset")
+        self.actionReset.setShortcut("Ctrl+R")
+        self.actionReset.setStatusTip("Resetiraj postavke")
         self.actionExit = QtWidgets.QAction(MainWindow)
         self.actionExit.setObjectName("actionExit")
         self.actionExit.setShortcut("Ctrl+E")
         self.actionExit.setStatusTip("Zatvori program")
 
         # menu actions
-        self.menuPipni2.addAction(self.actionReset)
-        self.menuPipni2.addAction(self.actionExit)
+        self.menuFile.addAction(self.actionReset)
+        self.menuFile.addAction(self.actionExit)
         self.menuHelp.addAction(self.actionAbout)
-        self.menuBar.addAction(self.menuPipni2.menuAction())
+        self.menuBar.addAction(self.menuFile.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
 
         # added here from QtCreator's translate function
@@ -152,7 +160,7 @@ class Ui_MainWindow(object):
         self.specif_lineEdit.setPlaceholderText("npr. sprecifikacija.csv")
         self.lista_lineEdit_2.setPlaceholderText("npr. adresar.csv")
         self.izlazni_groupBox.setTitle("Izlazni podaci")
-        self.menuPipni2.setTitle("Pipni2")
+        self.menuFile.setTitle("File")
         self.menuHelp.setTitle("Help")
         self.actionAbout.setText("About")
         self.actionReset.setText("Reset")
