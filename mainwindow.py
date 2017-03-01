@@ -18,8 +18,8 @@ class ClickableLineEdit(QtWidgets.QLineEdit):
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 600)
-        MainWindow.setMinimumSize(QtCore.QSize(800, 600))
+        MainWindow.resize(800, 800)
+        MainWindow.setMinimumSize(QtCore.QSize(800, 800))
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
         self.zeljeni_groupBox = QtWidgets.QGroupBox(self.centralWidget)
@@ -97,10 +97,10 @@ class Ui_MainWindow(object):
         self.lista_lineEdit_2.setGeometry(QtCore.QRect(120, 110, 171, 26))
         self.lista_lineEdit_2.setObjectName("lista_lineEdit_2")
         self.izlazni_groupBox = QtWidgets.QGroupBox(self.centralWidget)
-        self.izlazni_groupBox.setGeometry(QtCore.QRect(10, 210, 771, 321))
+        self.izlazni_groupBox.setGeometry(QtCore.QRect(10, 210, 771, 521))
         self.izlazni_groupBox.setObjectName("izlazni_groupBox")
         self.textBrowser = QtWidgets.QTextBrowser(self.izlazni_groupBox)
-        self.textBrowser.setGeometry(QtCore.QRect(10, 30, 751, 281))
+        self.textBrowser.setGeometry(QtCore.QRect(10, 30, 751, 481))
         self.textBrowser.setObjectName("textBrowser")
         MainWindow.setCentralWidget(self.centralWidget)
 

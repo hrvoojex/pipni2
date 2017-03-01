@@ -63,7 +63,7 @@ class Main(QtWidgets.QMainWindow):
                    None, QtWidgets.QFileDialog.DontUseNativeDialog)
         # sender is object that sends the signal
         sender = self.sender()
-        # wite selected file name into that QLineEdit widget 'lista_lineEdit'
+        # write selected file name into that QLineEdit widget 'lista_lineEdit'
         sender.setText(fname)
         # set options for combobox only from 'lista_lineEdit' QLineEdit widget
         if sender.objectName() == "lista_lineEdit":
@@ -71,16 +71,29 @@ class Main(QtWidgets.QMainWindow):
             self.fill_combobox(fname)
 
 
+    def open_file(self, filename):
+        """Reads a file and returns a data. Every line is an item in a list"""
+        try:
+            with open(filename, "r") as fh:
+                # read from a file line by line. Every line is a item in a list
+                data = fh.readlines()
+                # removes escape charachters from items in list 'data'
+                data = [x.strip() for x in data]
+            return data
+        except FileNotFoundError as e:
+            self.ui.textBrowser.setText(str("Greška {}; popuni podatke".format(e)))
+
+
     def fill_combobox(self, filename):
         """
         Set combobox options from lista.csv header. This method is called
         when first QLineEdit widget is clicked
         """
-        with open(filename, "r") as fh:
-            # read from a file line by line. Every line is a item in a list
-            data = fh.readlines()
-            # removes escape charachters from items in list 'data'
-            data = [x.strip() for x in data]
+        # to not allow filename of type Nonetype eg. filename=""
+        if filename != "":
+            # removes all previous combobox options
+            self.ui.zeljeni_comboBox.clear()
+            data = self.open_file(filename)
             # from 0-th item in list 'data' and split where is ';' sign
             first_row_words = data[0].split(";")
             index = 0
@@ -106,7 +119,8 @@ class Main(QtWidgets.QMainWindow):
 
     def display_in_textbox(self):
         """Display calculation result in QtextBox widget"""
-        self.ui.textBrowser.setText(self.ui.zeljeni_comboBox.currentText())
+        #self.ui.textBrowser.setText(self.ui.zeljeni_comboBox.currentText())
+        self.calculations_lista()
 
 
     def cancel_settings(self):
@@ -128,6 +142,7 @@ class Main(QtWidgets.QMainWindow):
     def adresar_changed(self):
         """Change global OUTPUT_FILE to QLineEdit widget adresar text"""
         global OUTPUT_FILE
+        # add time in a file name
         date_string = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
         save_to = self.ui.izlazna_lineEdit.text()
         if save_to != "":
@@ -136,8 +151,29 @@ class Main(QtWidgets.QMainWindow):
             OUTPUT_FILE = date_string + "-output_pipni.csv"
 
 
-    def calculation(self):
-        """Method for calculation a logic of a program"""
+    def calculations_lista(self):
+        """Method for calculation a logic of a program with lista.csv"""
+        # create empty string for storing information to display
+        display = []
+        file_name = self.ui.lista_lineEdit.text()
+        # open a file that is listed in lista QLineEdit widget and
+        # put every line as a item in working_data list
+        working_data = self.open_file(file_name)
+        index = self.ui.zeljeni_comboBox.currentIndex()
+        #self.ui.textBrowser.setText(str(working_data))
+        for line in working_data:
+            word = line.split(";")
+            display.append((word[1], word[index]))
+
+        self.ui.textBrowser.setText(str(display))
+
+
+
+
+
+
+
+
 
 
 
