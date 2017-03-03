@@ -119,7 +119,7 @@ class Main(QtWidgets.QMainWindow):
 
     def display_in_textbox(self):
         """Display calculation result in QtextBox widget"""
-        #self.ui.textBrowser.setText(self.ui.zeljeni_comboBox.currentText())
+        self.ui.textBrowser.clear()
         self.calculations_lista()
 
 
@@ -160,21 +160,21 @@ class Main(QtWidgets.QMainWindow):
         # put every line as a item in working_data list
         working_data = self.open_file(file_name)
         index = self.ui.zeljeni_comboBox.currentIndex()
-        #self.ui.textBrowser.setText(str(working_data))
+        self.ui.textBrowser.setFontFamily("monospace")
         for line in working_data:
             word = line.split(";")
             display.append((word[1], word[index]))
-
-        self.ui.textBrowser.setText(str(display))
-
+            self.ui.textBrowser.append("{:20}{:.>30}".format(word[1], word[index]))
 
 
-
-
-
-
-
-
+    def sort_tup_from_list(self, input_list):
+        """Sorts tuples in a list by value"""
+        tmp = []
+        for tup in input_list:
+            for key, val in tup:
+                tmp.append((val, key))
+                tmp.sort(reverse=True)
+        return tmp
 
 
     def spremi_button_disabled(self):
