@@ -8,9 +8,11 @@ author: Hrvoje T
 last edited: February 2017
 """
 
-import sys
 from mainwindow import *
+import sys
 import datetime
+import string
+import re
 
 
 # File for saving the result. Default 'output_pipni2.csv' if not explicitly named
@@ -160,21 +162,63 @@ class Main(QtWidgets.QMainWindow):
         # put every line as a item in working_data list
         working_data = self.open_file(file_name)
         index = self.ui.zeljeni_comboBox.currentIndex()
-        self.ui.textBrowser.setFontFamily("monospace")
         for line in working_data:
             word = line.split(";")
+            # removes ' signs from string and converts numbers into float
+            word[index] = self.clean_and_convert(word[index])
+            # Don't pass the first non-float line to list display because
+            # strings and floats can't be compared for sorting
+            if type(word[index]) != float:
+                self.ui.header_title = word[index]
+                self.ui.header_ident = word[1]
+                # take another line
+                continue
             display.append((word[1], word[index]))
-            self.ui.textBrowser.append("{:20}{:.>30}".format(word[1], word[index]))
+        # Sorts the list
+        my_list = self.sort_tup_from_list(display)
+        # Shows the list in a textbrowser
+        self.show_in_textbrowser(my_list)
+
+
+    def clean_and_convert(self, item):
+        """Remove ' sign from string and convert it to int if it is all numbers"""
+        # Replace ' sign for nothing. Just remove it from string
+        item = item.replace("'", "")
+        item = item.replace(",", ".")
+        # If string has all numbers declare it float type
+        if item[0].isdigit():
+            item = float(item)
+        return item
+
+
+    def get_key(self, item):
+        """
+        Returns a key for a sort function. Number 1 means sort by
+        the second item. Item parameter is hiden and given by sort()
+        """
+        return item[1]
 
 
     def sort_tup_from_list(self, input_list):
         """Sorts tuples in a list by value"""
         tmp = []
-        for tup in input_list:
-            for key, val in tup:
-                tmp.append((val, key))
-                tmp.sort(reverse=True)
+        for key, val in input_list:
+            if type(val) != float:
+                title = val
+            tmp.append((key, val))
+            tmp.sort(key=self.get_key, reverse=True)
+        # Add header of csv file after sorting by float numbers not to mix
+        # str and float type
+        tmp.insert(0, (self.ui.header_ident, self.ui.header_title))
+        print(tmp)
         return tmp
+
+
+    def show_in_textbrowser(self, input_list):
+        """Display list of tuples in QTextBrowser"""
+        self.ui.textBrowser.setFontFamily("monospace")
+        for tup in input_list:
+            self.ui.textBrowser.append("{:15}{:.>30}".format(tup[0], tup[1]))
 
 
     def spremi_button_disabled(self):
