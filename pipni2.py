@@ -37,7 +37,9 @@ class Main(QtWidgets.QMainWindow):
         # call a method 'selectfile_Dialog' if one of QLineEdit objects is clicked
         self.ui.lista_lineEdit.clicked.connect(self.selectfile_Dialog)
         self.ui.specif_lineEdit.clicked.connect(self.selectfile_Dialog)
+        # lista_lineEdit_2 is adresar QLineEdit widget
         self.ui.lista_lineEdit_2.clicked.connect(self.selectfile_Dialog)
+
         # Close the main windows when 'Exit' menu is triggered
         self.ui.actionExit.triggered.connect(self.close)
         # When 'Prikaži' button is clicked, connect 'accepted' signal to method
@@ -176,12 +178,40 @@ class Main(QtWidgets.QMainWindow):
             display.append((word[1], word[index]))
         # Sorts the list
         my_list = self.sort_tup_from_list(display)
-        # Shows the list in a textbrowser
-        self.show_in_textbrowser(my_list)
+
+        # show in a textbrowser if 'Koji broj' is empty
+        if self.ui.broj_lineEdit.text() == "":
+            # Shows the list in a textbrowser
+            self.show_in_textbrowser(my_list)
+            #print(my_list)
+        else:
+            my_newlist = []
+            my_newlist.append(my_list[0])
+            print(my_newlist)
+            my_newlist.append(self.which_num(my_list))
+            self.show_in_textbrowser(my_newlist)
+
+
+    def which_num(self, lst):
+        """
+        Takes an input from 'Koji broj' and lst original result list filed
+        with tuples and filters only that broj_lineEdit phone
+        """
+        try:
+            phone_tup = ()
+            # reads a phone numner from broj_lineEdit widget
+            phone = int(self.ui.broj_lineEdit.text())
+            for key, val in lst:
+                if self.clean_quot(key) == str(phone):
+                    phone_tup = ((key, val))
+            return phone_tup
+        except ValueError as e:
+            self.ui.textBrowser.append(
+                "Nije pravilan broj 'Koji broj: {}".format(sys.exc_info()[0]))
 
 
     def clean_and_convert(self, item):
-        """Remove ' sign from string and convert it to int if it is all numbers"""
+        """Remove ' sign from string and convert it to float if it is all numbers"""
         # Replace ' sign for nothing. Just remove it from string
         item = item.replace("'", "")
         item = item.replace(",", ".")
@@ -191,10 +221,18 @@ class Main(QtWidgets.QMainWindow):
         return item
 
 
+    def clean_quot(self, item):
+        """Remove ' sign from string"""
+        # Replace ' sign for nothing. Just remove it from string
+        item = item.replace("'", "")
+        return item
+
+
     def get_key(self, item):
         """
         Returns a key for a sort function. Number 1 means sort by
-        the second item. Item parameter is hiden and given by sort()
+        the second item. Item parameter (tmp) is hiden and given by
+        sort() function in sort_tup_from_list() method
         """
         return item[1]
 
@@ -210,7 +248,6 @@ class Main(QtWidgets.QMainWindow):
         # Add header of csv file after sorting by float numbers not to mix
         # str and float type
         tmp.insert(0, (self.ui.header_ident, self.ui.header_title))
-        print(tmp)
         return tmp
 
 
