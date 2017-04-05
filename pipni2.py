@@ -11,8 +11,8 @@ last edited: February 2017
 from mainwindow import *
 import sys
 import datetime
-import string
-import re
+#import string
+#import re
 
 
 # File for saving the result. Default 'output_pipni2.csv' if not explicitly named
@@ -33,6 +33,8 @@ class Main(QtWidgets.QMainWindow):
 
         # disable 'Spremi' button if there is no data in textBrowser
         self.spremi_button_disabled()
+        # disable 'kojibroj_grpoupBox' when app is loaded
+        self.one_or_all()
 
         # call a method 'selectfile_Dialog' if one of QLineEdit objects is clicked
         self.ui.lista_lineEdit.clicked.connect(self.selectfile_Dialog)
@@ -50,6 +52,10 @@ class Main(QtWidgets.QMainWindow):
         self.ui.otkazi_button.clicked.connect(self.otkazi_button_clicked)
         # When 'Reset' menu is triggered
         self.ui.actionReset.triggered.connect(self.otkazi_button_clicked)
+        # disable 'kojibroj_groupBox' if svi_button in checked
+        self.ui.svi_radioButton.clicked.connect(self.one_or_all)
+        # enable 'kojibroj_groupBox' if jedan_button in checked
+        self.ui.jedan_radioButton.clicked.connect(self.one_or_all)
 
 
     def selectfile_Dialog(self, event=None):
@@ -256,6 +262,16 @@ class Main(QtWidgets.QMainWindow):
         self.ui.textBrowser.setFontFamily("monospace")
         for tup in input_list:
             self.ui.textBrowser.append("{:15}{:.>30}".format(tup[0], tup[1]))
+
+
+    def one_or_all(self):
+        if self.ui.svi_radioButton.isChecked():
+            self.ui.kojibroj_groupBox.setDisabled(1)
+        else:
+            self.ui.kojibroj_groupBox.setDisabled(0)
+
+
+
 
 
     def spremi_button_disabled(self):
