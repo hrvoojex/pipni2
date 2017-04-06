@@ -267,6 +267,7 @@ class Main(QtWidgets.QMainWindow):
     def one_or_all(self):
         if self.ui.svi_radioButton.isChecked():
             self.ui.kojibroj_groupBox.setDisabled(1)
+            self.ui.broj_lineEdit.setText("")
         else:
             self.ui.kojibroj_groupBox.setDisabled(0)
 
