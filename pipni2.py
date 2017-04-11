@@ -200,16 +200,23 @@ class Main(QtWidgets.QMainWindow):
 
     def which_num(self, lst):
         """
-        Takes an input from 'Koji broj' and lst original result list filed
+        Takes an input from 'Koji broj' and 'lst' original result list filed
         with tuples and filters only that broj_lineEdit phone
         """
+        # variable to check if phone number is in addressbook
+        is_here = False
         try:
             phone_tup = ()
-            # reads a phone numner from broj_lineEdit widget
+            # reads a phone number from broj_lineEdit widget
             phone = int(self.ui.broj_lineEdit.text())
             for key, val in lst:
+                if str(phone) in (key,val):
+                    # set flag is_here as True if phone number is is addresbook
+                    is_here = True
                 if self.clean_quot(key) == str(phone):
                     phone_tup = ((key, val))
+            if is_here == False:
+                self.ui.textBrowser.append("Broj nije u imeniku")
             return phone_tup
         except ValueError as e:
             self.ui.textBrowser.append(
@@ -260,9 +267,11 @@ class Main(QtWidgets.QMainWindow):
     def show_in_textbrowser(self, input_list):
         """Display list of tuples in QTextBrowser"""
         self.ui.textBrowser.setFontFamily("monospace")
-        for tup in input_list:
-            self.ui.textBrowser.append("{:15}{:.>30}".format(tup[0], tup[1]))
-
+        try:
+            for tup in input_list:
+                self.ui.textBrowser.append("{:15}{:.>30}".format(tup[0], tup[1]))
+        except:
+            print("No number in addressbook")
 
     def one_or_all(self):
         if self.ui.svi_radioButton.isChecked():
