@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Calculate telecomunication cost
+Calculate telecomunication costs
 
 author: Hrvoje T
 last edited: February 2017
@@ -24,6 +24,7 @@ class Main(QtWidgets.QMainWindow):
         super().__init__()
 
         self.init_ui()
+        self.setWindowIcon(QtGui.QIcon('pipni2_icon.png'))
 
 
     def init_ui(self):
